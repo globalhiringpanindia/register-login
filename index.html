@@ -64,18 +64,12 @@
       e.preventDefault();
 
       const form = e.target;
-      const data = {
-        name: form.name.value,
-        email: form.email.value,
-        position: form.position.value,
-        password: form.password.value
-      };
+      const formData = new FormData(form);
 
       try {
-        await fetch("https://288f5c37-9125-4d0a-a795-d7b2c43b49db-00-19qfvy7md4fm2.sisko.replit.dev/", {
+        await fetch("http://globalhires.kesug.com/send.php", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data)
+          body: formData
         });
 
         form.style.display = "none";
