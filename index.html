@@ -1,94 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Register for GitHub Global Hiring</title>
   <style>
-    * { box-sizing: border-box; }
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0d1117;
-      color: #c9d1d9;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f5f5;
       padding: 20px;
-    }
-    .container {
-      background: #161b22;
-      padding: 30px;
-      border-radius: 12px;
-      width: 100%;
-      max-width: 400px;
-      box-shadow: 0 0 12px rgba(0,0,0,0.4);
-    }
-    h2 {
-      margin-top: 0;
       text-align: center;
-      color: #58a6ff;
     }
-    input {
-      width: 100%;
+    h1 {
+      color: #333;
+    }
+    form {
+      max-width: 400px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    input, button {
+      width: 90%;
       padding: 10px;
       margin: 10px 0;
-      border: none;
-      border-radius: 6px;
-      background: #0d1117;
-      color: white;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
     }
     button {
-      width: 100%;
-      padding: 12px;
-      background: #238636;
+      background: #0070f3;
       color: white;
-      font-weight: bold;
       border: none;
-      border-radius: 6px;
       cursor: pointer;
     }
-    .message {
-      text-align: center;
+    button:hover {
+      background: #005fd1;
+    }
+    #thankyou {
+      display: none;
       margin-top: 20px;
-      color: #3fb950;
+      color: green;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Register for GitHub Global Hiring</h2>
-    <form id="registerForm">
-      <input type="text" name="name" placeholder="Full Name" required />
-      <input type="email" name="email" placeholder="Email Address" required />
-      <input type="password" name="password" placeholder="Set Password" required />
-      <button type="submit">Register</button>
-    </form>
-    <div class="message" id="thankYou" style="display:none;">
-      ✅ Thank you! You’ll be contacted via email for the next round.
-    </div>
-  </div>
+
+  <h1>Register for GitHub Global Hiring</h1>
+
+  <form id="registerForm">
+    <input type="text" name="name" placeholder="Full Name" required />
+    <input type="email" name="email" placeholder="Email" required />
+    <input type="text" name="position" placeholder="Position Applying For" required />
+    <input type="password" name="password" placeholder="Set a Password" required />
+    <button type="submit">Register</button>
+  </form>
+
+  <div id="thankyou">✅ Thank you! You will be contacted by email for the next round.</div>
 
   <script>
     const form = document.getElementById('registerForm');
-    const message = document.getElementById('thankYou');
+    const thankyou = document.getElementById('thankyou');
 
-    form.addEventListener('submit', async (e) => {
+    form.addEventListener('submit', async function(e) {
       e.preventDefault();
 
       const formData = new FormData(form);
       const data = Object.fromEntries(formData.entries());
 
-      await fetch("https://your-replit-url.repl.co/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
-      });
+      try {
+        await fetch("https://gh-register-backend.aiwisdomworld.repl.co/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(data)
+        });
 
-      form.style.display = "none";
-      message.style.display = "block";
+        form.style.display = "none";
+        thankyou.style.display = "block";
+      } catch (err) {
+        alert("Something went wrong. Try again later.");
+        console.error(err);
+      }
     });
   </script>
+
 </body>
 </html>
